@@ -772,5 +772,4 @@ type auto_bae60445_1fe8_4ffc_a903_ef8f4df126e0_Output_Variables_emptySeats = Num
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
-  <types:enrichment select="#f0b28005-23d3-48a5-b0e9-bfadb11c6966"/>
 </types:mule>
