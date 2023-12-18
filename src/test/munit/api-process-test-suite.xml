@@ -8,7 +8,6 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
-<<<<<<< HEAD
 	<munit:test name="nuovoTest" doc:id="3c0a6cfe-f566-4916-956d-f110a2404772" >
 		<munit:execution >
 			<set-payload value='#["Valore"]' doc:name="Set Payload" doc:id="8390745c-2d5f-408a-99ff-4814f86276be" />
@@ -37,9 +36,7 @@
 			</munit:set-event>
 			<flow-ref doc:name="getTotalPrice" doc:id="196ef0d7-919a-4002-96a8-1933412919ca" name="getTotalPrice"/>
 		</munit:execution>
-=======
 	<munit:test name="testRamo2" doc:id="fd8c358a-f63b-468c-a18a-89f6d55e20d7" >
->>>>>>> ramo2
 		<munit:validation >
 			<logger level="INFO" doc:name="Logger" doc:id="55c901f2-268b-4590-a3bb-9059fd88f462" message='#["Ciao"]'/>
 		</munit:validation>
