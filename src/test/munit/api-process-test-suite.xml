@@ -8,6 +8,7 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
+
 	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1" >
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="d3997062-0ad1-4b63-abbf-8df56e0e9aac" processor="http:request">
@@ -31,6 +32,7 @@
 			<munit-tools:assert-equals doc:name="correct output" doc:id="62b03c5b-69f2-40fe-a68c-de551017583f" actual="#[payload]" expected='#[output application/json&#10;---&#10;[&#10;    {&#10;        "ID": 1,&#10;        "code": "rree0001",&#10;        "price": 541,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 787",&#10;            "totalSeats": 200&#10;        }&#10;    },&#10;    {&#10;        "ID": 3,&#10;        "code": "ffee0192",&#10;        "price": 300,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    },&#10;    {&#10;        "ID": 10,&#10;        "code": "eefd4511",&#10;        "price": 900,&#10;        "departureDate": "2016-01-15T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 100,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    }&#10;]]'/>
 		</munit:validation>
 	</munit:test>
+
 	<munit:test name="api-process-test-postSubtraction" doc:id="210e9b80-4f71-4937-b646-5652ae715a64" >
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="504276e6-27a9-4d51-94b6-3506648852cd" >
@@ -45,6 +47,7 @@
 			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e5f6b4b3-8172-4171-b0d8-9d1ed6e2dfb8" actual="#[payload.result]" expected="#[180]"/>
 		</munit:validation>
 	</munit:test>
+
 	<munit:test name="api-process-test-postMultiply" doc:id="b1bb3b84-b65d-406d-93db-db70bd5bfb9e" >
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="55c77e4c-6d36-4b13-9ec0-db20232624ce" >
