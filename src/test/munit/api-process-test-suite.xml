@@ -8,11 +8,6 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
-	<munit:test name="testRamo2" doc:id="fd8c358a-f63b-468c-a18a-89f6d55e20d7" >
-		<munit:validation >
-			<logger level="INFO" doc:name="Logger" doc:id="55c901f2-268b-4590-a3bb-9059fd88f462" message='#["Ciao"]'/>
-		</munit:validation>
-	</munit:test>
 	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1" >
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="d3997062-0ad1-4b63-abbf-8df56e0e9aac" processor="http:request">
