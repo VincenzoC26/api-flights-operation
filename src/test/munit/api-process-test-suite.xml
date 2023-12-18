@@ -8,6 +8,7 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
+<<<<<<< HEAD
 	<munit:test name="nuovoTest" doc:id="3c0a6cfe-f566-4916-956d-f110a2404772" >
 		<munit:execution >
 			<set-payload value='#["Valore"]' doc:name="Set Payload" doc:id="8390745c-2d5f-408a-99ff-4814f86276be" />
@@ -36,38 +37,16 @@
 			</munit:set-event>
 			<flow-ref doc:name="getTotalPrice" doc:id="196ef0d7-919a-4002-96a8-1933412919ca" name="getTotalPrice"/>
 		</munit:execution>
+=======
+	<munit:test name="testRamo2" doc:id="fd8c358a-f63b-468c-a18a-89f6d55e20d7" >
+>>>>>>> ramo2
 		<munit:validation >
-			<munit-tools:assert-equals doc:name="vars.destination == LAX" doc:id="37759e5e-0364-436d-93d5-6121878517a8" actual="#[vars.destination]" expected="#['LAX']"/>
-			<logger level="INFO" doc:name="Logger" doc:id="238a31cb-5811-4d2a-b98a-a705fee7204d" message="#[vars.destination]"/>
-		</munit:validation>
-	</munit:test>
-	<munit:test name="api-process-test-correctOutput" doc:id="2b720717-064c-463e-8c30-98e0fdc3dae4" >
-		<munit:behavior >
-			<munit-tools:mock-when doc:name="getFlights" doc:id="f4f0152c-e473-47c7-85df-7a89e1cfee2e" processor="flow-ref">
-				<munit-tools:with-attributes >
-					<munit-tools:with-attribute whereValue="b84cfa64-eec2-424d-860b-195be8989557" attributeName="doc:id" />
-				</munit-tools:with-attributes>
-				<munit-tools:then-return >
-					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;        "ID": 1,&#10;        "code": "rree0001",&#10;        "price": 541,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 787",&#10;            "totalSeats": 200&#10;        }&#10;    },&#10;    {&#10;        "ID": 3,&#10;        "code": "ffee0192",&#10;        "price": 300,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    },&#10;    {&#10;        "ID": 10,&#10;        "code": "eefd4511",&#10;        "price": 900,&#10;        "departureDate": "2016-01-15T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 100,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    }&#10;]]' mediaType="application/json" />
-				</munit-tools:then-return>
-			</munit-tools:mock-when>
-		</munit:behavior>
-		<munit:execution >
-			<munit:set-event doc:name="queryParams.destination = LAX" doc:id="2430697a-cf0a-4ed2-a888-7aa22c98bdba" >
-				<munit:attributes value="#[{ method : 'GET', queryParams : { destination : 'LAX'}}]" />
-			</munit:set-event>
-			<flow-ref doc:name="getTotalPrice" doc:id="d4a8306d-8268-4e11-96ff-b65d8292b438" name="getTotalPrice"/>
-		</munit:execution>
-		<munit:validation>
-			<munit-tools:assert-equals doc:name="correct output" doc:id="1f2097b6-0c73-4691-b27e-d95ccf30d524" actual="#[payload]" expected='#[output application/json&#10;---&#10;&#10;{&#10;  "destination": "LAX",&#10;  "planes": [&#10;    {&#10;      "type": "Boeing 777",&#10;      "pricePerSeat": "270000\$"&#10;    },&#10;    {&#10;      "type": "Boeing 787",&#10;      "pricePerSeat": "108200\$"&#10;    }&#10;  ]&#10;}]'/>
+			<logger level="INFO" doc:name="Logger" doc:id="55c901f2-268b-4590-a3bb-9059fd88f462" message='#["Ciao"]'/>
 		</munit:validation>
 	</munit:test>
 	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1" >
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="d3997062-0ad1-4b63-abbf-8df56e0e9aac" processor="http:request">
-				<munit-tools:with-attributes >
-					<munit-tools:with-attribute whereValue="f0216e49-ae7f-48ae-8d79-7e72eae1fc14" attributeName="doc:id" />
-				</munit-tools:with-attributes>
 				<munit-tools:before-call >
 					<munit-tools:assert-that doc:name="payload is null" doc:id="ef97bb34-3d2f-4277-8310-9d14b3e8fe2b" expression="#[payload]" is="#[MunitTools::nullValue()]"/>
 				</munit-tools:before-call>
