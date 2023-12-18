@@ -8,6 +8,14 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
+	<munit:test name="nuovoTest2" doc:id="3c0a6cfe-f566-4916-956d-f110a2404772" >
+		<munit:execution >
+			<set-payload value='#["Valore"]' doc:name="Set Payload" doc:id="8390745c-2d5f-408a-99ff-4814f86276be" />
+		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="4304b00b-6958-4cab-8765-c6201ea7b179" />
+		</munit:validation>
+	</munit:test>
 	<munit:test name="api-process-test-correctQueryParams" doc:id="322a3fb9-ba17-49b9-9f67-b8aa2d57f033" >
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="c7537094-b088-403b-89e8-1512463b1cd9" processor="ee:transform">
