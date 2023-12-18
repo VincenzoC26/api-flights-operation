@@ -8,39 +8,7 @@
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
 	<munit:config name="api-process-test-suite.xml" />
-	<munit:test name="nuovoTest" doc:id="3c0a6cfe-f566-4916-956d-f110a2404772" >
-		<munit:execution >
-			<set-payload value='#["Valore"]' doc:name="Set Payload" doc:id="8390745c-2d5f-408a-99ff-4814f86276be" />
-		</munit:execution>
-		<munit:validation >
-			<logger level="INFO" doc:name="Logger" doc:id="4304b00b-6958-4cab-8765-c6201ea7b179" />
-		</munit:validation>
-	</munit:test>
-	<munit:test name="api-process-test-correctQueryParams" doc:id="322a3fb9-ba17-49b9-9f67-b8aa2d57f033" >
-		<munit:behavior >
-			<munit-tools:spy doc:name="Spy" doc:id="c7537094-b088-403b-89e8-1512463b1cd9" processor="ee:transform">
-				<munit-tools:with-attributes >
-					<munit-tools:with-attribute whereValue="f0b28005-23d3-48a5-b0e9-bfadb11c6966" attributeName="doc:id" />
-				</munit-tools:with-attributes>
-				<munit-tools:before-call >
-					<munit-tools:assert-that doc:name="Assert that vars.destination is null" doc:id="9e4ae74d-af71-4283-9abd-46a2bdc1485c" expression="#[vars.destination]" is="#[MunitTools::nullValue()]"/>
-				</munit-tools:before-call>
-				<munit-tools:after-call >
-					<munit-tools:assert-that doc:name="Assert that vars.destination is not null" doc:id="01242406-00f7-499b-a9c0-0144b3809f97" expression="#[vars.destination]" is="#[MunitTools::notNullValue()]"/>
-				</munit-tools:after-call>
-			</munit-tools:spy>
-		</munit:behavior>
-		<munit:execution >
-			<munit:set-event doc:name="vars.destination = 'LAX'" doc:id="43b0a3d3-c481-4afd-9f3e-032cadf88efb" >
-				<munit:attributes value="#[{ method : 'GET', queryParams : { destination : 'LAX'}}]" />
-			</munit:set-event>
-			<flow-ref doc:name="getTotalPrice" doc:id="196ef0d7-919a-4002-96a8-1933412919ca" name="getTotalPrice"/>
-		</munit:execution>
-	<munit:test name="testRamo2" doc:id="fd8c358a-f63b-468c-a18a-89f6d55e20d7" >
-		<munit:validation >
-			<logger level="INFO" doc:name="Logger" doc:id="55c901f2-268b-4590-a3bb-9059fd88f462" message='#["Ciao"]'/>
-		</munit:validation>
-	</munit:test>
+
 	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1" >
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="d3997062-0ad1-4b63-abbf-8df56e0e9aac" processor="http:request">
@@ -64,6 +32,7 @@
 			<munit-tools:assert-equals doc:name="correct output" doc:id="62b03c5b-69f2-40fe-a68c-de551017583f" actual="#[payload]" expected='#[output application/json&#10;---&#10;[&#10;    {&#10;        "ID": 1,&#10;        "code": "rree0001",&#10;        "price": 541,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 787",&#10;            "totalSeats": 200&#10;        }&#10;    },&#10;    {&#10;        "ID": 3,&#10;        "code": "ffee0192",&#10;        "price": 300,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    },&#10;    {&#10;        "ID": 10,&#10;        "code": "eefd4511",&#10;        "price": 900,&#10;        "departureDate": "2016-01-15T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 100,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    }&#10;]]'/>
 		</munit:validation>
 	</munit:test>
+
 	<munit:test name="api-process-test-postSubtraction" doc:id="210e9b80-4f71-4937-b646-5652ae715a64" >
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="504276e6-27a9-4d51-94b6-3506648852cd" >
@@ -78,6 +47,7 @@
 			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e5f6b4b3-8172-4171-b0d8-9d1ed6e2dfb8" actual="#[payload.result]" expected="#[180]"/>
 		</munit:validation>
 	</munit:test>
+
 	<munit:test name="api-process-test-postMultiply" doc:id="b1bb3b84-b65d-406d-93db-db70bd5bfb9e" >
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="55c77e4c-6d36-4b13-9ec0-db20232624ce" >
