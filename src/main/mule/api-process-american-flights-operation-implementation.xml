@@ -83,6 +83,7 @@ output application/json
 	"int2": vars.emptySeats
 }]]]></http:body>
 		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="db0da00d-037c-4318-b629-37b67c180445" message="#[payload]"/>
 	</flow>
 	<flow name="postMultiply" doc:id="bae60445-1fe8-4ffc-a903-ef8f4df126e0" >
 		<http:request method="POST" doc:name="POST /multiply" doc:id="edb5420b-6468-4abb-9c7d-025bcc704051" config-ref="HTTP_Request_configuration1" path="api/multiply">
@@ -93,5 +94,6 @@ output application/json
 	"int2": vars.price
 }]]]></http:body>
 		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="c6c77fa6-bb27-49df-a847-796540b67c9f" message="#[payload]"/>
 	</flow>
 </mule>

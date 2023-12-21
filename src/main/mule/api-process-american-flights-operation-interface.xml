@@ -123,7 +123,7 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="get:\totalPrice:api-process-american-flights-operation-config">
+    <flow name="get:\totalPrice:api-process-american-flights-operation-config" doc:id="83112213-a73e-4ee9-aa8d-bb16a8d90dd1">
 		<flow-ref doc:name="getTotalPrice" doc:id="7100cc99-2432-4e0d-a244-b5076417b45b" name="getTotalPrice"/>
     </flow>
 </mule>

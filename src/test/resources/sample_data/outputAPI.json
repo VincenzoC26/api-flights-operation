@@ -1,0 +1,13 @@
+{
+    "destination": "LAX",
+    "planes": [
+        {
+            "type": "Boeing 777",
+            "pricePerSeat": "270000\$"
+        },
+        {
+            "type": "Boeing 787",
+            "pricePerSeat": "108200\$"
+        }
+    ]
+}

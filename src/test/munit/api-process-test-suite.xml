@@ -1,47 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xsi:schemaLocation="
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
 		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
-		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<munit:config name="api-process-test-suite.xml" />
-	<munit:test name="nuovoTest" doc:id="3c0a6cfe-f566-4916-956d-f110a2404772" >
-		<munit:execution >
-			<set-payload value='#["Valore"]' doc:name="Set Payload" doc:id="8390745c-2d5f-408a-99ff-4814f86276be" />
-		</munit:execution>
-		<munit:validation >
-			<logger level="INFO" doc:name="Logger" doc:id="4304b00b-6958-4cab-8765-c6201ea7b179" />
-		</munit:validation>
-	</munit:test>
-	<munit:test name="api-process-test-correctQueryParams" doc:id="322a3fb9-ba17-49b9-9f67-b8aa2d57f033" >
+	<munit:test name="api-process-test-suiteTest1" doc:id="c226490a-b58d-43e1-8612-a4de6dc48277">
 		<munit:behavior >
-			<munit-tools:spy doc:name="Spy" doc:id="c7537094-b088-403b-89e8-1512463b1cd9" processor="ee:transform">
+			<munit-tools:mock-when doc:name="getFlights Request" doc:id="87424575-51bd-4520-b4b3-a3bdce5f0c80" processor="flow-ref">
 				<munit-tools:with-attributes >
-					<munit-tools:with-attribute whereValue="f0b28005-23d3-48a5-b0e9-bfadb11c6966" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="b84cfa64-eec2-424d-860b-195be8989557" attributeName="doc:id" />
 				</munit-tools:with-attributes>
-				<munit-tools:before-call >
-					<munit-tools:assert-that doc:name="Assert that vars.destination is null" doc:id="9e4ae74d-af71-4283-9abd-46a2bdc1485c" expression="#[vars.destination]" is="#[MunitTools::nullValue()]"/>
-				</munit-tools:before-call>
-				<munit-tools:after-call >
-					<munit-tools:assert-that doc:name="Assert that vars.destination is not null" doc:id="01242406-00f7-499b-a9c0-0144b3809f97" expression="#[vars.destination]" is="#[MunitTools::notNullValue()]"/>
-				</munit-tools:after-call>
-			</munit-tools:spy>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://sample_data/mockFlightsLAX.json')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="postSubtraction" doc:id="87d4c7d3-be8f-41c4-b3f2-22e885023c60" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9c37c766-76be-4329-bd1b-008790ebfc1a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-call flow="mockedFlow" />
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="postMultiply" doc:id="c7eb3648-6ab5-4ab2-82aa-5cabf5635ee9" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ac737a1d-eed4-463d-b23d-c678d110b295" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-call flow="mockedFlow2" />
+			</munit-tools:mock-when>
 		</munit:behavior>
 		<munit:execution >
-			<munit:set-event doc:name="vars.destination = 'LAX'" doc:id="43b0a3d3-c481-4afd-9f3e-032cadf88efb" >
-				<munit:attributes value="#[{ method : 'GET', queryParams : { destination : 'LAX'}}]" />
+			<munit:set-event doc:name="Set Event" doc:id="4a9431a5-2c75-418f-9398-5274633a1e1c" >
+				<munit:attributes value='#["queryParams": {"destination": "LAX"}]' />
 			</munit:set-event>
-			<flow-ref doc:name="getTotalPrice" doc:id="196ef0d7-919a-4002-96a8-1933412919ca" name="getTotalPrice"/>
+			<flow-ref doc:name="getTotalPrice" doc:id="741376be-c845-4e63-a3b2-537d0eb09486" name="getTotalPrice"/>
 		</munit:execution>
-	<munit:test name="testRamo2" doc:id="fd8c358a-f63b-468c-a18a-89f6d55e20d7" >
 		<munit:validation >
-			<logger level="INFO" doc:name="Logger" doc:id="55c901f2-268b-4590-a3bb-9059fd88f462" message='#["Ciao"]'/>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="36e200e7-f332-41af-9fc7-169c1f6a4c68" actual="#[payload]" expected="#[readUrl('classpath://sample_data/outputAPI.json')]"/>
 		</munit:validation>
 	</munit:test>
-	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1" >
+	<flow name="mockedFlow2" doc:id="0f85c6d5-711f-4b60-abd5-fce3e8874df6" >
+		<choice doc:name="Choice" doc:id="200fe111-4896-442b-9f95-815dced1f9b6" >
+			<when expression="#[vars.counter == 1]" >
+				<set-payload value='#[{&#10;	"result": 108200&#10;}]' doc:name="Set Payload" doc:id="2fd82adf-dce8-4897-8941-9dee591fcf05" />
+			</when>
+			<when expression="#[vars.counter == 2]" >
+				<set-payload value='#[{&#10;	"result": 90000&#10;}]' doc:name="Set Payload" doc:id="844e0fa9-7335-4157-aa41-93a9db86e561" />
+			</when>
+			<otherwise >
+				<set-payload value='#[{&#10;	"result": 180000&#10;}]' doc:name="Set Payload" doc:id="dabfc44c-39a6-498a-8bac-5d476acfb7f7" />
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="Transform Message" doc:id="128fda1b-5368-40cf-ab12-a0c5c37b1a59" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="mockedFlow" doc:id="4439762b-f55a-4130-87e1-9b2fb927cf4b" >
+		<choice doc:name="Choice" doc:id="b65e2428-476f-4137-bc5d-9f7fdc6e90e2" >
+			<when expression="#[vars.counter == 1]">
+				<set-payload value='#[{&#10;	"result": 200&#10;}]' doc:name="Set Payload" doc:id="ab1a8367-6f7d-4f80-8a0b-541030979c5f" />
+			</when>
+			<when expression="#[vars.counter == 2]">
+				<set-payload value='#[{&#10;	"result": 300&#10;}]' doc:name="Set Payload" doc:id="1133595e-01f1-4688-8f46-f84619e038d6" />
+			</when>
+			<otherwise >
+				<set-payload value='#[{&#10;	"result": 200&#10;}]' doc:name="Set Payload" doc:id="4521189e-3df5-4148-a4f6-2d433411212e" />
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="Transform Message" doc:id="c41ff891-e6d7-47b1-adbc-47de6bdcd85b">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+	</flow>
+	<munit:test name="api-process-test-getFlights" doc:id="e8e8badc-0b42-4e74-ad85-c66b83850ee1">
 		<munit:behavior >
 			<munit-tools:spy doc:name="Spy" doc:id="d3997062-0ad1-4b63-abbf-8df56e0e9aac" processor="http:request">
 				<munit-tools:before-call >
@@ -64,7 +107,7 @@
 			<munit-tools:assert-equals doc:name="correct output" doc:id="62b03c5b-69f2-40fe-a68c-de551017583f" actual="#[payload]" expected='#[output application/json&#10;---&#10;[&#10;    {&#10;        "ID": 1,&#10;        "code": "rree0001",&#10;        "price": 541,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 787",&#10;            "totalSeats": 200&#10;        }&#10;    },&#10;    {&#10;        "ID": 3,&#10;        "code": "ffee0192",&#10;        "price": 300,&#10;        "departureDate": "2016-01-20T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 0,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    },&#10;    {&#10;        "ID": 10,&#10;        "code": "eefd4511",&#10;        "price": 900,&#10;        "departureDate": "2016-01-15T00:00:00",&#10;        "origin": "MUA",&#10;        "destination": "LAX",&#10;        "emptySeats": 100,&#10;        "plane": {&#10;            "type": "Boeing 777",&#10;            "totalSeats": 300&#10;        }&#10;    }&#10;]]'/>
 		</munit:validation>
 	</munit:test>
-	<munit:test name="api-process-test-postSubtraction" doc:id="210e9b80-4f71-4937-b646-5652ae715a64" >
+	<munit:test name="api-process-test-postSubtraction" doc:id="210e9b80-4f71-4937-b646-5652ae715a64">
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="504276e6-27a9-4d51-94b6-3506648852cd" >
 				<munit:variables >
@@ -78,7 +121,7 @@
 			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e5f6b4b3-8172-4171-b0d8-9d1ed6e2dfb8" actual="#[payload.result]" expected="#[180]"/>
 		</munit:validation>
 	</munit:test>
-	<munit:test name="api-process-test-postMultiply" doc:id="b1bb3b84-b65d-406d-93db-db70bd5bfb9e" >
+	<munit:test name="api-process-test-postMultiply" doc:id="b1bb3b84-b65d-406d-93db-db70bd5bfb9e">
 		<munit:execution >
 			<munit:set-event doc:name="Set Event" doc:id="55c77e4c-6d36-4b13-9ec0-db20232624ce" >
 				<munit:payload value='#[output application/json&#10;---&#10;{&#10;	"result": 10&#10;}]' />
@@ -91,6 +134,44 @@
 		<munit:validation >
 			<munit-tools:assert-equals doc:name="Assert equals" doc:id="22c35f24-8631-45e6-bb07-9cc5855c8b23" actual="#[payload.result]" expected="#[100]"/>
 		</munit:validation>
+	</munit:test>
+	<munit:test name="api-process-test-suiteTest" doc:id="470f7dbb-2a2d-4e55-a428-ffb43a198f00">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a8d31c3f-658e-47f5-9bad-4642d2bc90d9" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f0216e49-ae7f-48ae-8d79-7e72eae1fc14" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://sample_data/mockFlights.json')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="getFlights" doc:id="c725b4b4-3dad-4fe3-ae2c-62719faf852b" name="getFlights"/>
+		</munit:execution>
+		<munit:validation>
+			<logger level="INFO" doc:name="Logger" doc:id="15ad362e-6183-4ceb-83c2-3509e038830b" message="#[payload]"/>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b29a294e-82e8-46d6-8df2-1e94923bbc4c" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-process-test-suiteTest2" doc:id="c3db4693-8140-4f70-b297-641d0e270d37" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="getFlights Request" doc:id="97f5589b-df3e-4662-b442-9df0bdeaa8e4" processor="flow-ref" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b84cfa64-eec2-424d-860b-195be8989557" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://sample_data/mockFlightsLAX.json')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="postSubtraction" doc:id="8fed9333-4df6-476c-b96c-a1033457978e" processor="flow-ref" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9c37c766-76be-4329-bd1b-008790ebfc1a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				
+				<munit-tools:then-call flow="mockedFlow" />
+			</munit-tools:mock-when>
+		</munit:behavior>
 	</munit:test>
 
 
